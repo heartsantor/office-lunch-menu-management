@@ -1,17 +1,57 @@
+import React, { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { size } from "lodash";
+import { toastAlert } from "../utils/AppHelpers";
+import { useDispatch } from "react-redux";
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
+import { useLoginMutation } from "../store/features/auth/authApi";
+import { userLoggedIn } from "../store/features/auth/authSlice";
+
 export default function Login() {
+  const { pathname } = useLocation();
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const mutationData = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+
+    if (size(mutationData)) {
+      login(mutationData)
+        .unwrap()
+        .then((payload) => {
+          const { accessToken, user } = payload || {};
+          const result = {
+            accessToken,
+            user,
+          };
+          if (user?.role !== "admin") {
+            toastAlert("success", "Hi Admin!");
+          }
+          if (user?.role !== "employee") {
+            toastAlert("success", "Hi Employee!");
+          }
+          if (size(result)) {
+            localStorage.setItem("auth", JSON.stringify(result));
+            dispatch(userLoggedIn(result));
+          }
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          toastAlert("error", err?.data || err?.error);
+        });
+    }
   };
 
   return (
@@ -58,12 +98,13 @@ export default function Login() {
               autoComplete="current-password"
             />
             <Button
+              disabled={isLoading}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {isLoading ? "Authenticating..." : "Sign in"}
             </Button>
           </Box>
         </Box>

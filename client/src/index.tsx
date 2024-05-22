@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { store } from "./store/store";
 import "./index.css";
 import App from "./App";
+import 'react-toastify/dist/ReactToastify.css';
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
