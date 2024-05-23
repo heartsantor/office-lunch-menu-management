@@ -28,11 +28,8 @@ export const addMenuOption = async (req: Request, res: Response) => {
 export const viewEmployeeChoices = async (req: Request, res: Response) => {
   try {
     const result = await query(`
-      SELECT users.name, menus.date, choices.chosenOption
-      FROM choices
-      JOIN users ON choices.userId = users.id
-      JOIN menus ON choices.menuId = menus.id
-      ORDER BY menus.date, users.name
+    SELECT id,userid,menuid, date, title, description, category, img_url
+    FROM user_choices
     `);
 
     res.status(200).json(result.rows);
