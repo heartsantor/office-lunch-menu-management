@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { size } from "lodash";
 import { toastAlert } from "../utils/AppHelpers";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,6 @@ import { useLoginMutation } from "../store/features/auth/authApi";
 import { userLoggedIn } from "../store/features/auth/authSlice";
 
 export default function Login() {
-  const { pathname } = useLocation();
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();

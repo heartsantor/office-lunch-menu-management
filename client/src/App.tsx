@@ -3,8 +3,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
+
 import ProtectedRoute from "./layouts/ProtectedRoute";
+import PublicRoute from "./layouts/PublicRoute";
+
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   const defaultTheme = createTheme();
@@ -13,8 +17,16 @@ const App = () => {
     {
       path: "/",
       component: (
-        <ProtectedRoute>
+        <PublicRoute>
           <Login />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: "/dashboard",
+      component: (
+        <ProtectedRoute>
+          <Dashboard />
         </ProtectedRoute>
       ),
     },
