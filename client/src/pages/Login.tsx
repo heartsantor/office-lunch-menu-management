@@ -30,6 +30,7 @@ export default function Login() {
       login(mutationData)
         .unwrap()
         .then((payload) => {
+          console.log("🚀 ~ .then ~ payload:", payload);
           const { accessToken, user } = payload || {};
           const result = {
             accessToken,
@@ -39,7 +40,7 @@ export default function Login() {
             toastAlert("success", "Hi Admin!");
           }
           if (user?.role !== "employee") {
-            toastAlert("success", "Hi Employee!");
+            toastAlert("success", `Hi ${user?.name}!`);
           }
           if (size(result)) {
             localStorage.setItem("auth", JSON.stringify(result));
@@ -48,7 +49,8 @@ export default function Login() {
           navigate("/dashboard");
         })
         .catch((err) => {
-          toastAlert("error", err?.data || err?.error);
+          console.log("🚀 ~ handleSubmit ~ err:", err);
+          toastAlert("error", err?.data?.error || err?.error);
         });
     }
   };
