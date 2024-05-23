@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import { json, urlencoded } from 'body-parser';
-import authRoutes from './routes/auth';
+import authRoutes from './src/routes/auth';
 
 dotenv.config();
 
