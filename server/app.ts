@@ -1,15 +1,14 @@
-import express, { Application } from 'express';
-import dotenv from 'dotenv';
-import { json, urlencoded } from 'body-parser';
-import authRoutes from './src/routes/auth';
+import express from "express";
+import bodyParser from "body-parser";
+import adminRoutes from "./src/routes/admin";
+import employeeRoutes from "./src/routes/employee";
+import authRoutes from "./src/routes/auth";
 
-dotenv.config();
+const app = express();
 
-const app: Application = express();
-
-app.use(json());
-app.use(urlencoded({ extended: true }));
-
-app.use('/auth', authRoutes);
+app.use(bodyParser.json());
+app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
+app.use("/employee", employeeRoutes);
 
 export default app;

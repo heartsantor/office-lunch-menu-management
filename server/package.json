@@ -6,8 +6,7 @@
   "scripts": {
     "start": "ts-node index.ts",
     "dev": "npx nodemon --exec ts-node index.ts",
-    "migrate": "node-pg-migrate -f pgmigrate-config.js up",
-    "migrate:down": "node-pg-migrate -f pgmigrate-config.js down",
+    "migrate": "node-pg-migrate up",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
