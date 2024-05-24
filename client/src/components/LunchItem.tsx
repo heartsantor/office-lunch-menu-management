@@ -1,5 +1,7 @@
-import * as React from "react";
+import React, { useRef } from "react";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import { toastAlert } from "../utils/AppHelpers";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -14,6 +16,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import Delete from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+import { useDeleteMenuMutation } from "../store/features/admin/adminApi";
 
 import { RootState } from "../utils/types";
 import { formatDate } from "../utils/formatDate";
@@ -35,6 +39,22 @@ interface LunchItemProps {
 
 const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
   const { user } = useSelector((state: RootState) => state.auth);
+
+  const [deleteMenu, { isLoading }] = useDeleteMenuMutation({});
+
+  const handleDeleteMenu = (menuId: number) => {
+    if (menuId) {
+      deleteMenu(menuId)
+        .unwrap()
+        .then((res) => {
+          toastAlert("success", "Deleted Menu!");
+        })
+        .catch((err) => {
+          toastAlert("error", err?.data || err?.error);
+        });
+    }
+  };
+
   return (
     <Card
       sx={{
@@ -63,7 +83,11 @@ const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
         {user?.role === "admin" ? (
           <>
             <div></div>
-            <IconButton aria-label="share">
+            <IconButton
+              aria-label="share"
+              disabled={isLoading}
+              onClick={() => handleDeleteMenu(item.menu_id)}
+            >
               <Delete />
             </IconButton>
           </>

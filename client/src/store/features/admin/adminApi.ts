@@ -18,6 +18,13 @@ export const adminApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteMenu: builder.mutation({
+      query: (id) => ({
+        url: `/admin/menu/${id}`,
+        method: "DELETE",
+        body: id,
+      }),
+    }),
   }),
 });
 
@@ -26,4 +33,5 @@ export const {
   useGetAllMenuQuery,
   useLazyGetAllMenuByDateQuery,
   useAddFoodItemMutation,
+  useDeleteMenuMutation,
 } = adminApi;
