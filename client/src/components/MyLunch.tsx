@@ -7,27 +7,21 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 import MyLunchItem from "./MyLunchItem";
 
 const MyLunch = () => {
   return (
     <Box
-      sx={{
-        width: "100%",
-      }}
+      p={3}
+      component={Paper}
+      variant="outlined"
+      sx={{ background: "#EBEBEB" }}
     >
-      <Box
-        sx={{
-          width: { sm: "100%", md: "60%" },
-          textAlign: "left",
-            pb: { xs: 1, sm: 2 },
-        }}
-      >
-        <Typography component="h2" variant="h4" color="text.primary">
-          My Lunch
-        </Typography>
-      </Box>
+      <Typography variant="h6" gutterBottom>
+        My Lunch Item
+      </Typography>
       <Grid container spacing={2}>
         <Grid
           item

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { size } from "lodash";
 import { toastAlert } from "../utils/AppHelpers";
@@ -18,28 +18,60 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+
+    // Reset validation messages
+    setEmailError("");
+    setPasswordError("");
+
+    let isValid = true;
+
+    // Basic email validation
+    if (!email) {
+      setEmailError("Email is required.");
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Email is invalid.");
+      isValid = false;
+    }
+
+    // Password validation
+    if (!password) {
+      setPasswordError("Password is required.");
+      isValid = false;
+    } else if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long.");
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
     const mutationData = {
-      email: data.get("email"),
-      password: data.get("password"),
+      email,
+      password,
     };
 
     if (size(mutationData)) {
       login(mutationData)
         .unwrap()
         .then((payload) => {
-          console.log("🚀 ~ .then ~ payload:", payload);
           const { accessToken, user } = payload || {};
           const result = {
             accessToken,
             user,
           };
-          if (user?.role !== "admin") {
+          if (user?.role === "admin") {
             toastAlert("success", "Hi Admin!");
           }
-          if (user?.role !== "employee") {
+          if (user?.role === "employee") {
             toastAlert("success", `Hi ${user?.name}!`);
           }
           if (size(result)) {
@@ -49,7 +81,6 @@ export default function Login() {
           navigate("/dashboard");
         })
         .catch((err) => {
-          console.log("🚀 ~ handleSubmit ~ err:", err);
           toastAlert("error", err?.data?.error || err?.error);
         });
     }
@@ -87,6 +118,10 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={!!emailError}
+              helperText={emailError}
             />
             <TextField
               margin="normal"
@@ -97,6 +132,10 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              error={!!passwordError}
+              helperText={passwordError}
             />
             <Button
               disabled={isLoading}

@@ -1,5 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { userLoggedOut } from "../store/features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,15 +15,19 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+
+import { RootState } from "../utils/types";
 
 const pages = [
   { label: "Create Item", path: "/create-item" },
   { label: "Choices List", path: "/choice-list" },
 ];
-const settings = ["Logout"];
 
 const NavBar = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const dispatch = useDispatch();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -41,6 +48,10 @@ const NavBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogOut = () => {
+    dispatch(userLoggedOut());
   };
 
   return (
@@ -72,7 +83,6 @@ const NavBar = () => {
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
@@ -84,7 +94,6 @@ const NavBar = () => {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              // onClose={handleCloseNavMenu("")}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
@@ -120,28 +129,44 @@ const NavBar = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.label}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                component={Link}
-                to={page.path}
-              >
-                {page.label}
-              </Button>
-            ))}
+            {user?.role === "admin" &&
+              pages.map((page) => (
+                <Button
+                  key={page.label}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  component={Link}
+                  to={page.path}
+                >
+                  {page.label}
+                </Button>
+              ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                marginRight: 1,
+              }}
+            >
+              <Typography variant="body1">
+                {`${user?.name} `}
+                <Typography
+                  variant="body1"
+                  component="span"
+                  color={`${user?.role === "admin" ? "#ff6b6b" : "#79ff6b"}`}
+                >
+                  ({user?.role})
+                </Typography>
+              </Typography>
+            </Box>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar />
               </IconButton>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
-              id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: "top",
@@ -155,11 +180,9 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleLogOut}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

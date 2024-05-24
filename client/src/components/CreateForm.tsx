@@ -39,50 +39,95 @@ const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
       sx={{ display: "flex", flexDirection: "column", gap: 2 }}
     >
       <Typography variant="h4">Add New Food Item</Typography>
-      <TextField
-        label="Food Title"
-        variant="outlined"
-        value={foodTitle}
-        onChange={(e) => setFoodTitle(e.target.value)}
-        required
-      />
-      <TextField
-        label="Food Description"
-        variant="outlined"
-        multiline
-        rows={4}
-        value={foodDescription}
-        onChange={(e) => setFoodDescription(e.target.value)}
-        required
-      />
-      <TextField
-        label="Set Date"
-        type="date"
-        InputLabelProps={{ shrink: true }}
-        value={setDate}
-        onChange={(e) => setSetDate(e.target.value)}
-        required
-      />
-      <FormControl variant="outlined">
-        <InputLabel id="category-label">Category</InputLabel>
-        <Select
-          labelId="category-label"
-          value={category}
-          onChange={(e) => setCategory(e.target.value as string)}
-          label="Category"
+      <Box sx={{ display: "flex", gap: 2 }}>
+        <Box sx={{ flex: 1 }}>
+          <Box sx={{ width: "100%", mb: 1 }}>
+            <TextField
+              label="Food Title"
+              variant="outlined"
+              value={foodTitle}
+              onChange={(e) => setFoodTitle(e.target.value)}
+              required
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ width: "100%", mb: 1 }}>
+            <TextField
+              label="Set Date"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={setDate}
+              onChange={(e) => setSetDate(e.target.value)}
+              required
+              fullWidth
+            />
+          </Box>
+          <Box sx={{ width: "100%" }}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="category-label">Category</InputLabel>
+              <Select
+                labelId="category-label"
+                value={category}
+                onChange={(e) => setCategory(e.target.value as string)}
+                label="Category"
+                required
+                fullWidth
+              >
+                {categories.map((cat) => (
+                  <MenuItem key={cat} value={cat}>
+                    {cat}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </Box>
+        <TextField
+          label="Food Description"
+          variant="outlined"
+          multiline
+          rows={6}
+          value={foodDescription}
+          onChange={(e) => setFoodDescription(e.target.value)}
           required
-        >
-          {categories.map((cat) => (
-            <MenuItem key={cat} value={cat}>
-              {cat}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <CloudinaryWidget onUpload={handleImageUpload} />
-      {imageUrl && (
-        <img src={imageUrl} alt="Uploaded" style={{ maxWidth: "100%" }} />
-      )}
+          sx={{ flex: 1 }}
+        />
+      </Box>
+      <Box sx={{ display: "flex", gap: 2 }}>
+        <Box sx={{ flex: 1 }}>
+          <Box
+            sx={{
+              width: "100%",
+              minHeight: "200px",
+              background: "#EBEBEB",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              padding: "8px",
+              maxWidth: "100%",
+              marginBottom: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt="Uploaded"
+                style={{ maxWidth: "100%", height: "auto" }}
+              />
+            ) : (
+              <Typography variant="body2" sx={{ marginBottom: "16px" }}>
+                No image uploaded
+              </Typography>
+            )}
+          </Box>
+        </Box>
+        <Box>
+          <CloudinaryWidget onUpload={handleImageUpload} />
+        </Box>
+      </Box>
+
       <Button type="submit" variant="contained" color="primary">
         Submit
       </Button>

@@ -1,5 +1,11 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { Container, Box } from "@mui/material";
+
+import { RootState } from "../utils/types"; // Adjust the import path as needed
+
 import EmployeeTable from "../components/EmployeeTable";
 
 const employeeData = [
@@ -23,9 +29,20 @@ const employeeData = [
 ];
 
 const ChoiceList = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  if (user?.role === "employee") {
+    return <Navigate to="/" />;
+  }
   return (
     <Container>
-      <EmployeeTable data={employeeData} />
+      <Box
+        sx={{
+          mt: 4,
+        }}
+      >
+        <EmployeeTable data={employeeData} />
+      </Box>
     </Container>
   );
 };
