@@ -1,10 +1,11 @@
 import React from "react";
 import Container from "@mui/material/Container";
 
-import TodayLunch from "../components/TodayLunch";
-import MyLunch from "../components/MyLunch";
+import CreateForm from "../components/CreateForm";
 
-const Dashboard = () => {
+const categories = ["Fruits", "Vegetables", "Dairy", "Meat"];
+
+const CreateItem = () => {
   return (
     <Container
       sx={{
@@ -12,10 +13,9 @@ const Dashboard = () => {
         pb: { xs: 8, sm: 16 },
       }}
     >
-      <MyLunch />
-      <TodayLunch />
+      <CreateForm categories={categories} />
     </Container>
   );
 };
 
-export default Dashboard;
+export default CreateItem;

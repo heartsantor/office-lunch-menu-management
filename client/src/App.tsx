@@ -13,10 +13,11 @@ import PublicRoute from "./layouts/PublicRoute";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import CreateItem from "./pages/CreateItem";
+import ChoiceList from "./pages/ChoiceList";
 
 const App = () => {
   const isAuthChecked = useAuthCheck();
-
   const defaultTheme = createTheme();
 
   const routes = [
@@ -33,6 +34,22 @@ const App = () => {
       component: (
         <ProtectedRoute>
           <Dashboard />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/create-item",
+      component: (
+        <ProtectedRoute>
+          <CreateItem />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/choice-list",
+      component: (
+        <ProtectedRoute>
+          <ChoiceList />
         </ProtectedRoute>
       ),
     },
