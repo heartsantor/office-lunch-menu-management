@@ -11,3 +11,12 @@ export interface AuthState {
 export interface RootState {
   auth: AuthState;
 }
+
+export interface FetchBaseQueryError {
+  status: number;
+  data?: unknown;
+}
+
+export interface SerializedError {
+  message: string;
+}

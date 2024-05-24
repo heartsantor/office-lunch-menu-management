@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { toastAlert } from "../utils/AppHelpers";
+import { size } from "lodash";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -7,29 +9,50 @@ import { Container, Box } from "@mui/material";
 import { RootState } from "../utils/types"; // Adjust the import path as needed
 
 import EmployeeTable from "../components/EmployeeTable";
+import LoadingSpinner from "../components/LoadingSpinner";
 
-const employeeData = [
-  {
-    serialNo: 1,
-    employeeId: "E001",
-    employeeName: "John Doe",
-    foodTitle: "Pizza",
-    foodDescription: "Cheese Pizza with extra toppings",
-    foodImage: "https://via.placeholder.com/100", // Placeholder image
-  },
-  {
-    serialNo: 2,
-    employeeId: "E002",
-    employeeName: "Jane Smith",
-    foodTitle: "Burger",
-    foodDescription: "Beef Burger with cheese",
-    foodImage: "https://via.placeholder.com/100", // Placeholder image
-  },
-  // Add more employee data as needed
-];
+import { useGetEmployeeChoiceListQuery } from "../store/features/admin/adminApi";
+
+import { FetchBaseQueryError, SerializedError } from "../utils/types";
 
 const ChoiceList = () => {
   const { user } = useSelector((state: RootState) => state.auth);
+  const {
+    data: choiceList,
+    isLoading,
+    isError,
+    error,
+  } = useGetEmployeeChoiceListQuery({});
+  console.log("🚀 ~ Dashboard ~ choiceList:", choiceList);
+
+  // Type guard functions
+  function isFetchBaseQueryError(error: any): error is FetchBaseQueryError {
+    return error && typeof error.status === "number" && "data" in error;
+  }
+
+  function isSerializedError(error: any): error is SerializedError {
+    return error && typeof error.message === "string";
+  }
+
+  useEffect(() => {
+    if (isError) {
+      let errorMessage = "An unknown error occurred";
+
+      if (error) {
+        if (isFetchBaseQueryError(error)) {
+          // Handle FetchBaseQueryError
+          errorMessage = error.data
+            ? JSON.stringify(error.data)
+            : `Status: ${error.status}`;
+        } else if (isSerializedError(error)) {
+          // Handle SerializedError
+          errorMessage = error.message;
+        }
+      }
+
+      toastAlert("error", errorMessage);
+    }
+  }, [error, isError]);
 
   if (user?.role === "employee") {
     return <Navigate to="/" />;
@@ -41,7 +64,15 @@ const ChoiceList = () => {
           mt: 4,
         }}
       >
-        <EmployeeTable data={employeeData} />
+        {(() => {
+          if (isLoading) {
+            return <LoadingSpinner isLoading={true} />;
+          }
+          if (size(choiceList)) {
+            return <EmployeeTable data={choiceList} />;
+          }
+          return <div>no found</div>;
+        })()}
       </Box>
     </Container>
   );

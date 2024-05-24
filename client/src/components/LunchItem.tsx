@@ -1,5 +1,6 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,32 +12,69 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import Delete from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const LunchItem = () => {
+import { RootState } from "../utils/types";
+import { formatDate } from "../utils/formatDate";
+interface MenuData {
+  menu_id: number;
+  date: string;
+  title: string;
+  description: string;
+  rating: string;
+  rating_amount: number;
+  price: string;
+  category: string[];
+  img_url: string;
+}
+
+interface LunchItemProps {
+  item: MenuData;
+}
+
+const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        title="Shrimp and Chorizo Paella"
-        // subheader="September 14, 2016"
-      />
+    <Card
+      sx={{
+        width: "100%",
+      }}
+    >
+      <CardHeader title={item.title} subheader={formatDate(item.date)} />
       <CardMedia
         component="img"
         height="194"
-        image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+        image={item.img_url}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {item.description}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
+      <CardActions
+        disableSpacing
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        {user?.role === "admin" ? (
+          <>
+            <div></div>
+            <IconButton aria-label="share">
+              <Delete />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <div></div>
+          </>
+        )}
       </CardActions>
     </Card>
   );

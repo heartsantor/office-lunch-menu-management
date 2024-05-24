@@ -28,7 +28,7 @@ export const addMenuOption = async (req: Request, res: Response) => {
 export const viewEmployeeChoices = async (req: Request, res: Response) => {
   try {
     const result = await query(`
-    SELECT id,userid,menuid, date, title, description, category, img_url
+    SELECT id, userid, userName, menuid, date, title, description, category, img_url
     FROM user_choices
     `);
 

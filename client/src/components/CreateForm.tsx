@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { size } from "lodash";
+import { toastAlert } from "../utils/AppHelpers";
 import {
   Button,
   TextField,
@@ -11,11 +13,15 @@ import {
 } from "@mui/material";
 import { CloudinaryWidget } from "./CloudinaryWidget";
 
+import { useAddFoodItemMutation } from "../store/features/admin/adminApi";
+
 interface FoodFormProps {
   categories: string[];
 }
 
 const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
+  const [addMenu, { isLoading }] = useAddFoodItemMutation({});
+
   const [foodTitle, setFoodTitle] = useState("");
   const [foodDescription, setFoodDescription] = useState("");
   const [setDate, setSetDate] = useState("");
@@ -28,8 +34,28 @@ const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle form submission logic
-    console.log({ foodTitle, foodDescription, setDate, category, imageUrl });
+
+    const updatedData = {
+      date: setDate,
+      title: foodTitle,
+      description: foodDescription,
+      rating: 0,
+      rating_amount: 0,
+      price: 0,
+      category: [category],
+      imgUrl: imageUrl,
+    };
+
+    if (size(updatedData)) {
+      addMenu(updatedData)
+        .unwrap()
+        .then((res) => {
+          if (size(res)) {
+            toastAlert("success", "Menu added successfully!");
+          }
+        })
+        .catch((err) => toastAlert("error", err?.data?.error || err?.error));
+    }
   };
 
   return (
@@ -128,8 +154,13 @@ const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
         </Box>
       </Box>
 
-      <Button type="submit" variant="contained" color="primary">
-        Submit
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={isLoading}
+      >
+        {isLoading ? "Saving" : "Save"}
       </Button>
     </Box>
   );

@@ -11,12 +11,15 @@ import {
 } from "@mui/material";
 
 interface EmployeeData {
-  serialNo: number;
-  employeeId: string;
-  employeeName: string;
-  foodTitle: string;
-  foodDescription: string;
-  foodImage: string;
+  category: string;
+  date: string;
+  description: string;
+  id: string;
+  img_url: string;
+  menuid: number;
+  title: string;
+  userid: number;
+  username: string;
 }
 
 interface EmployeeTableProps {
@@ -33,7 +36,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
         <TableHead>
           <TableRow>
             <TableCell>Serial No</TableCell>
-            <TableCell>Employee ID</TableCell>
+            {/* <TableCell>Employee ID</TableCell> */}
             <TableCell>Employee Name</TableCell>
             <TableCell>Food Title</TableCell>
             <TableCell>Food Description</TableCell>
@@ -42,16 +45,16 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
         </TableHead>
         <TableBody>
           {data.map((employee) => (
-            <TableRow key={employee.serialNo}>
-              <TableCell>{employee.serialNo}</TableCell>
-              <TableCell>{employee.employeeId}</TableCell>
-              <TableCell>{employee.employeeName}</TableCell>
-              <TableCell>{employee.foodTitle}</TableCell>
-              <TableCell>{employee.foodDescription}</TableCell>
+            <TableRow key={employee.id}>
+              <TableCell>{employee.id}</TableCell>
+              {/* <TableCell>{employee.userid}</TableCell> */}
+              <TableCell>{employee.username}</TableCell>
+              <TableCell>{employee.title}</TableCell>
+              <TableCell>{employee.description}</TableCell>
               <TableCell>
                 <img
-                  src={employee.foodImage}
-                  alt={employee.foodTitle}
+                  src={employee.img_url}
+                  alt={employee.title}
                   style={{ width: "100px" }}
                 />
               </TableCell>
