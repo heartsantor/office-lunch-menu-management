@@ -25,6 +25,18 @@ export const addMenuOption = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteMenuOptionById = async (req: Request, res: Response) => {
+  const menuId = req.params.menuId;
+
+  try {
+    await query("DELETE FROM menus WHERE menu_id = $1", [menuId]);
+    res.status(200).json({ message: "Menu option deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error deleting menu option" });
+  }
+};
+
 export const viewEmployeeChoices = async (req: Request, res: Response) => {
   try {
     const result = await query(`

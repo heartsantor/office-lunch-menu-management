@@ -74,3 +74,27 @@ export const selectLunchChoice = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error selecting lunch choice" });
   }
 };
+
+export const viewTodayMenuByUserId = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+
+  try {
+    const result = await query(
+      `SELECT m.*
+       FROM menus m
+       LEFT JOIN user_choices uc ON m.menu_id = uc.menuid AND uc.userId = $1
+       WHERE m.date = $2`,
+      [userId, today]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "No menu found for today" });
+    }
+
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error fetching today's menu:", error);
+    res.status(500).json({ error: "Error fetching today's menu" });
+  }
+};
