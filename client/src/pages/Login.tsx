@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link as RoutLink, useNavigate } from "react-router-dom";
 import { size } from "lodash";
 import { toastAlert } from "../utils/AppHelpers";
 import { useDispatch } from "react-redux";
 
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 
 import { useLoginMutation } from "../store/features/auth/authApi";
 import { userLoggedIn } from "../store/features/auth/authSlice";
@@ -147,6 +150,37 @@ export default function Login() {
               {isLoading ? "Authenticating..." : "Sign in"}
             </Button>
           </Box>
+          <Grid container>
+            <Grid item>
+              <Link to="/registration" component={RoutLink} variant="body2">
+                already have account? Sign In
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+        <Box component={Paper} sx={{ background: "#EBEBEB99", mb: 4 }}>
+          <p>
+            <strong>admin</strong>
+          </p>
+          <pre>
+            <code>
+              email:- admin@admin.com <br />
+              password:- adminpassword
+            </code>
+          </pre>
+          <p>
+            <strong>employee</strong>
+          </p>
+          <pre>
+            <code>
+              email:- employee6@admin.com <br />
+              password:- adminpassword
+              <br />
+              <br />
+              email:-employee7@admin.com <br />
+              password:- adminpassword
+            </code>
+          </pre>
         </Box>
       </Container>
     </>

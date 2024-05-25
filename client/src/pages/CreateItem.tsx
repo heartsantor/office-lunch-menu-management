@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -8,7 +7,13 @@ import CreateForm from "../components/CreateForm";
 
 import { RootState } from "../utils/types"; // Adjust the import path as needed
 
-const categories = ["Fruits", "Vegetables", "Dairy", "Meat"];
+const categories = [
+  "Set Menu 1",
+  "Set Menu 2",
+  "Set Menu 3",
+  "Set Menu 4",
+  "Set Menu 5",
+];
 
 const CreateItem = () => {
   const { user } = useSelector((state: RootState) => state.auth);

@@ -12,6 +12,7 @@ import ProtectedRoute from "./layouts/ProtectedRoute";
 import PublicRoute from "./layouts/PublicRoute";
 
 import Login from "./pages/Login";
+import Registration from "./pages/Registration";
 import Dashboard from "./pages/Dashboard";
 import CreateItem from "./pages/CreateItem";
 import ChoiceList from "./pages/ChoiceList";
@@ -26,6 +27,14 @@ const App = () => {
       component: (
         <PublicRoute>
           <Login />
+        </PublicRoute>
+      ),
+    },
+    {
+      path: "/registration",
+      component: (
+        <PublicRoute>
+          <Registration />
         </PublicRoute>
       ),
     },

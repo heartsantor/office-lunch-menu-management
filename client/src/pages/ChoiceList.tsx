@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { toastAlert } from "../utils/AppHelpers";
 import { size } from "lodash";
 import { Navigate } from "react-router-dom";
@@ -23,7 +23,6 @@ const ChoiceList = () => {
     isError,
     error,
   } = useGetEmployeeChoiceListQuery({});
-  console.log("🚀 ~ Dashboard ~ choiceList:", choiceList);
 
   // Type guard functions
   function isFetchBaseQueryError(error: any): error is FetchBaseQueryError {

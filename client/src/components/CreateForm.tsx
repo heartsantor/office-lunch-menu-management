@@ -94,7 +94,7 @@ const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
           </Box>
           <Box sx={{ width: "100%" }}>
             <FormControl variant="outlined" fullWidth>
-              <InputLabel id="category-label">Category</InputLabel>
+              <InputLabel id="category-label">Set Menu</InputLabel>
               <Select
                 labelId="category-label"
                 value={category}

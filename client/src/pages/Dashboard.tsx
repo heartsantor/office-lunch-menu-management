@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { size } from "lodash";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -21,12 +21,7 @@ import { RootState } from "../utils/types";
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const {
-    data: allMenuData,
-    isLoading,
-    isError,
-    error,
-  } = useGetAllMenuQuery({});
+  const { data: allMenuData, isLoading } = useGetAllMenuQuery({});
   const { data: employeeTodayData, isLoading: employeeIsLoading } =
     useGetEmployeeTodayMenuQuery(user?.id);
 
@@ -109,7 +104,20 @@ const Dashboard = () => {
             />
           );
         }
-        return <div>no found</div>;
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignContent: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              py: 4,
+            }}
+          >
+            <Typography variant="h5">Today No Lunch Menu</Typography>
+          </Box>
+        );
       })()}
 
       {user?.role === "admin" ? (
@@ -127,7 +135,20 @@ const Dashboard = () => {
                 />
               );
             }
-            return <div>no found</div>;
+            return (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  py: 4,
+                }}
+              >
+                <Typography variant="h5">No Lunch Menu</Typography>
+              </Box>
+            );
           })()}
         </>
       ) : null}
