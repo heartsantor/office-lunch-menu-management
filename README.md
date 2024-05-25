@@ -10,6 +10,22 @@ its a test project for Software Engineer Internship Opportunity at RoBenDevs
 
  - [Front-end Live Link -https://office-lunch-menu-management.vercel.app](https://office-lunch-menu-management.vercel.app)
  - [Backend Live Link -https://office-lunch-menu-management.vercel.app](https://office-lunch-api.vercel.app)
+## credentials
+
+**admin**
+
+```bash
+email:- admin@admin.com
+password:- adminpassword
+```
+**employee**
+```bash
+email:- employee6@admin.com
+password:- adminpassword
+
+email:- employee7@admin.com
+password:- adminpassword
+```
 ## Tech Stack
 
 **Client:** 
