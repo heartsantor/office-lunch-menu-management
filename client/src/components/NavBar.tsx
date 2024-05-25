@@ -19,8 +19,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { RootState } from "../utils/types";
 
 const pages = [
-  { label: "Create Item", path: "/create-item" },
-  { label: "Choices List", path: "/choice-list" },
+  { label: "Create Food Item", path: "/create-item" },
+  { label: "Employee Choices List", path: "/choice-list" },
 ];
 
 const NavBar = () => {
