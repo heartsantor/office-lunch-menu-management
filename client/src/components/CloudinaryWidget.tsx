@@ -27,8 +27,9 @@ export const CloudinaryWidget: React.FC<CloudinaryWidgetProps> = ({
   const createWidget = () => {
     return window.cloudinary.createUploadWidget(
       {
-        cloudName: "adnanshanto",
-        uploadPreset: "degendrop",
+        cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || "adnanshanto",
+        uploadPreset:
+          process.env.REACT_APP_CLOUDINARY_UPLOAD_PERSET || "degendrop",
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {

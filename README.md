@@ -34,6 +34,7 @@ password:- adminpassword
 - Redux toolkit
 - TypeScript
 - Toastify
+- Cloudinary
 
 **Server:** 
 - NodeJS
@@ -94,6 +95,9 @@ Start the server
 To run this project, you will need to add the following environment variables to your .env file
 
 `REACT_APP_API_URL = http://localhost:5000`
+
+`REACT_APP_CLOUDINARY_CLOUD_NAME = `
+`REACT_APP_CLOUDINARY_UPLOAD_PERSET = `
 
 
 ## Run Locally Server
@@ -180,7 +184,7 @@ CREATE TABLE user_choices (
     userId INTEGER,
     menuId INTEGER,
     username VARCHAR(255),
-    date DATE,
+    date VARCHAR(255),
     title VARCHAR(255),
     description TEXT,
     rating DECIMAL(3, 2),
