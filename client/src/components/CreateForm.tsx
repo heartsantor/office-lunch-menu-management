@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { size } from "lodash";
+import { useNavigate } from "react-router-dom";
 import { toastAlert } from "../utils/AppHelpers";
 import {
   Button,
@@ -21,6 +22,8 @@ interface FoodFormProps {
 
 const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
   const [addMenu, { isLoading }] = useAddFoodItemMutation({});
+
+  const navigate = useNavigate();
 
   const [foodTitle, setFoodTitle] = useState("");
   const [foodDescription, setFoodDescription] = useState("");
@@ -52,6 +55,7 @@ const CreateForm: React.FC<FoodFormProps> = ({ categories }) => {
         .then((res) => {
           if (size(res)) {
             toastAlert("success", "Menu added successfully!");
+            navigate("/dashboard");
           }
         })
         .catch((err) => toastAlert("error", err?.data?.error || err?.error));

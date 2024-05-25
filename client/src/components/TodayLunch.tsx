@@ -1,6 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 
 import LunchItem from "./LunchItem";
 
@@ -18,28 +19,36 @@ interface MenuData {
 
 interface EmployeeTableProps {
   data: MenuData[];
+  title: string;
+  description: string;
 }
 
-const TodayLunch: React.FC<EmployeeTableProps> = ({ data }) => {
+const TodayLunch: React.FC<EmployeeTableProps> = ({
+  data,
+  title,
+  description,
+}) => {
   return (
     <Box
       sx={{
         width: "100%",
+        mb: 4,
       }}
     >
       <Box
         sx={{
-          width: { sm: "100%", md: "60%" },
+          width: "100%",
           textAlign: "left",
-          // margin: "0 auto",
+          mb: 3,
         }}
       >
-        <Typography component="h2" variant="h4" color="text.primary">
-          Todays Lunch List
+        <Typography component="h1" variant="h5" color="text.primary">
+          {title}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          You can select only one lunch today
+          {description}
         </Typography>
+        <Divider />
       </Box>
       <Grid container spacing={2}>
         {data?.map((item) => (

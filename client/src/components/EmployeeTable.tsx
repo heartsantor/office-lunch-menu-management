@@ -30,7 +30,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
       <Typography variant="h6" component="div" sx={{ padding: 2 }}>
-        Employee Food Details
+        Employee Choices Item List
       </Typography>
       <Table>
         <TableHead>
@@ -44,9 +44,9 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((employee) => (
-            <TableRow key={employee.id}>
-              <TableCell>{employee.id}</TableCell>
+          {data.map((employee, i) => (
+            <TableRow key={i}>
+              <TableCell>{i + 1}</TableCell>
               {/* <TableCell>{employee.userid}</TableCell> */}
               <TableCell>{employee.username}</TableCell>
               <TableCell>{employee.title}</TableCell>

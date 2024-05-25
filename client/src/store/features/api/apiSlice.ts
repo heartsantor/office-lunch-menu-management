@@ -1,4 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query/react";
 
 const getAuthToken = () => {
   const auth = localStorage.getItem("auth");
@@ -20,7 +25,7 @@ export const apiSlice = createApi({
       }
       return headers;
     },
-  }),
+  }) as BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>,
   tagTypes: [],
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
 });

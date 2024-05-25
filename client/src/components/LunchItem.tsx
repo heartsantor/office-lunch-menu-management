@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { toastAlert } from "../utils/AppHelpers";
 
 import Card from "@mui/material/Card";
@@ -8,14 +7,10 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import Delete from "@mui/icons-material/Delete";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { useDeleteMenuMutation } from "../store/features/admin/adminApi";
 import { useAddEmployeeChoiceMutation } from "../store/features/employee/employeeApi";
@@ -75,20 +70,26 @@ const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
     <Card
       sx={{
         width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%", // Ensure the card takes full height of the container
       }}
     >
-      <CardHeader title={item.title} subheader={formatDate(item.date)} />
-      <CardMedia
-        component="img"
-        height="194"
-        image={item.img_url}
-        alt="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {item.description}
-        </Typography>
-      </CardContent>
+      <div>
+        <CardHeader title={item.title} subheader={formatDate(item.date)} />
+        <CardMedia
+          component="img"
+          height="194"
+          image={item.img_url}
+          alt="Paella dish"
+        />
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography variant="body2" color="text.secondary">
+            {item.description}
+          </Typography>
+        </CardContent>
+      </div>
       <CardActions
         disableSpacing
         sx={{
@@ -111,6 +112,7 @@ const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
           <>
             <IconButton
               aria-label="add to favorites"
+              disabled={isEmployeeLoading}
               onClick={() =>
                 handleAddEmployeeChoice({
                   userId: user?.id,

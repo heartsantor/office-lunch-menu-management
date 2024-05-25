@@ -4,6 +4,7 @@ export const employeeApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getEmployeeTodayMenu: builder.query({
       query: (id) => `/employee/menu/today/${id}`,
+      providesTags: ["EmployeeTodayMenu"],
     }),
     addEmployeeChoice: builder.mutation({
       query: (data) => ({
@@ -11,6 +12,7 @@ export const employeeApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["EmployeeTodayMenu"],
     }),
   }),
 });

@@ -7,9 +7,11 @@ export const adminApi = apiSlice.injectEndpoints({
     }),
     getAllMenu: builder.query({
       query: () => "/employee/menu",
+      providesTags: ["getAllMenu"],
     }),
     getAllMenuByDate: builder.query({
       query: (date) => `/employee/menu?date=${date}`,
+      providesTags: ["getAllMenuByDate"],
     }),
     addFoodItem: builder.mutation({
       query: (data) => ({
@@ -17,6 +19,7 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["getAllMenu", "getAllMenuByDate"],
     }),
     deleteMenu: builder.mutation({
       query: (id) => ({
@@ -24,6 +27,7 @@ export const adminApi = apiSlice.injectEndpoints({
         method: "DELETE",
         body: id,
       }),
+      invalidatesTags: ["getAllMenu", "getAllMenuByDate"],
     }),
   }),
 });

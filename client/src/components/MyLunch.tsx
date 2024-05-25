@@ -33,9 +33,12 @@ const MyLunch: React.FC<EmployeeTableProps> = ({ data }) => {
       p={3}
       component={Paper}
       variant="outlined"
-      sx={{ background: "#EBEBEB" }}
+      sx={{ background: "#EBEBEB99", mb: 4 }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+      >
         My Lunch Item
       </Typography>
       <Grid container spacing={2}>

@@ -4,7 +4,7 @@ import { size } from "lodash";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { Container, Box } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 
 import { RootState } from "../utils/types"; // Adjust the import path as needed
 
@@ -62,6 +62,7 @@ const ChoiceList = () => {
       <Box
         sx={{
           mt: 4,
+          mb: 4,
         }}
       >
         {(() => {
@@ -71,7 +72,18 @@ const ChoiceList = () => {
           if (size(choiceList)) {
             return <EmployeeTable data={choiceList} />;
           }
-          return <div>no found</div>;
+          return (
+            <Box
+              sx={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+                py: 16,
+              }}
+            >
+              <Typography variant="h5">No Data Available</Typography>
+            </Box>
+          );
         })()}
       </Box>
     </Container>
