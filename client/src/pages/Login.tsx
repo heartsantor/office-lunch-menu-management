@@ -153,7 +153,7 @@ export default function Login() {
           <Grid container>
             <Grid item>
               <Link to="/registration" component={RoutLink} variant="body2">
-                already have account? Sign In
+                Don't Have An Account? Sign Up
               </Link>
             </Grid>
           </Grid>
