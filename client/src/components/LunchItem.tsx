@@ -18,6 +18,7 @@ import Delete from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { useDeleteMenuMutation } from "../store/features/admin/adminApi";
+import { useAddEmployeeChoiceMutation } from "../store/features/employee/employeeApi";
 
 import { RootState } from "../utils/types";
 import { formatDate } from "../utils/formatDate";
@@ -41,6 +42,8 @@ const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const [deleteMenu, { isLoading }] = useDeleteMenuMutation({});
+  const [addEmployeeChoice, { isLoading: isEmployeeLoading }] =
+    useAddEmployeeChoiceMutation({});
 
   const handleDeleteMenu = (menuId: number) => {
     if (menuId) {
@@ -51,6 +54,19 @@ const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
         })
         .catch((err) => {
           toastAlert("error", err?.data || err?.error);
+        });
+    }
+  };
+  const handleAddEmployeeChoice = (data: any) => {
+    if (data) {
+      addEmployeeChoice(data)
+        .unwrap()
+        .then((res) => {
+          toastAlert("success", res);
+        })
+        .catch((err) => {
+          console.log("🚀 ~ handleAddEmployeeChoice ~ err:", err);
+          toastAlert("error", err?.data?.error || err?.error);
         });
     }
   };
@@ -93,7 +109,16 @@ const LunchItem: React.FC<LunchItemProps> = ({ item }) => {
           </>
         ) : (
           <>
-            <IconButton aria-label="add to favorites">
+            <IconButton
+              aria-label="add to favorites"
+              onClick={() =>
+                handleAddEmployeeChoice({
+                  userId: user?.id,
+                  menuId: item.menu_id,
+                  userName: user?.name,
+                })
+              }
+            >
               <FavoriteIcon />
             </IconButton>
             <div></div>

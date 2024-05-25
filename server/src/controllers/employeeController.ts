@@ -77,14 +77,27 @@ export const selectLunchChoice = async (req: Request, res: Response) => {
 
 export const viewTodayMenuByUserId = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+
+  const getTodayInBangladesh = () => {
+    const now = new Date();
+    const bangladeshTime = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Dhaka",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(now);
+
+    return bangladeshTime;
+  };
+
+  const today = getTodayInBangladesh();
 
   try {
     const result = await query(
       `SELECT m.*
        FROM menus m
-       LEFT JOIN user_choices uc ON m.menu_id = uc.menuid AND uc.userId = $1
-       WHERE m.date = $2`,
+       JOIN user_choices uc ON m.menu_id = uc.menuid
+       WHERE uc.userId = $1 AND m.date = $2`,
       [userId, today]
     );
 

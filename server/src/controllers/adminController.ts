@@ -12,13 +12,19 @@ export const addMenuOption = async (req: Request, res: Response) => {
     category,
     imgUrl,
   } = req.body;
+  console.log("🚀 ~ addMenuOption ~ date:", date);
 
   try {
-    await query(
-      "INSERT INTO menus (date, title, description, rating, rating_amount, price, category, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+    const result = await query(
+      "INSERT INTO menus (date, title, description, rating, rating_amount, price, category, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [date, title, description, rating, rating_amount, price, category, imgUrl]
     );
-    res.status(201).json({ message: "Menu option added successfully" });
+    res
+      .status(201)
+      .json({
+        message: "Menu option added successfully",
+        data: result.rows[0],
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error adding menu option" });

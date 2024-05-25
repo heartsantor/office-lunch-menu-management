@@ -11,7 +11,23 @@ import Paper from "@mui/material/Paper";
 
 import MyLunchItem from "./MyLunchItem";
 
-const MyLunch = () => {
+interface MenuData {
+  menu_id: number;
+  date: string;
+  title: string;
+  description: string;
+  rating: string;
+  rating_amount: number;
+  price: string;
+  category: string[];
+  img_url: string;
+}
+
+interface EmployeeTableProps {
+  data: MenuData[];
+}
+
+const MyLunch: React.FC<EmployeeTableProps> = ({ data }) => {
   return (
     <Box
       p={3}
@@ -23,15 +39,18 @@ const MyLunch = () => {
         My Lunch Item
       </Typography>
       <Grid container spacing={2}>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={4}
-          sx={{ display: "flex", pb: { xs: 2, sm: 4 } }}
-        >
-          <MyLunchItem />
-        </Grid>
+        {data?.map((item) => (
+          <Grid
+            key={item.menu_id}
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            sx={{ display: "flex" }}
+          >
+            <MyLunchItem item={item} />
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
