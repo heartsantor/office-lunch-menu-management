@@ -70,7 +70,14 @@ const EmployeeList = () => {
             return <LoadingSpinner isLoading={true} />;
           }
           if (size(getEmployeeList)) {
-            return <EmployeeTable data={getEmployeeList} />;
+            return (
+              <Box sx={{ p: 0 }}>
+                <Typography variant="h6" component="div" sx={{ py: 2, px: 0 }}>
+                  Employee List
+                </Typography>
+                <EmployeeTable data={getEmployeeList} />
+              </Box>
+            );
           }
           return (
             <Box

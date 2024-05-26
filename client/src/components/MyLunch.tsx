@@ -69,9 +69,9 @@ const MyLunch: React.FC<EmployeeTableProps> = ({ data, isLoading = true }) => {
             }}
           >
             <Typography variant="h5">
-              Not Yet select your today lunch
+              Not yet select your today lunch
             </Typography>
-            <Typography variant="body1">please select from below</Typography>
+            <Typography variant="body1">please choose from below</Typography>
           </Box>
         );
       })()}

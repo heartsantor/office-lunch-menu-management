@@ -35,5 +35,36 @@ export function overrides(theme: any) {
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        containedInherit: {
+          color: theme.palette.common.white,
+          backgroundColor: theme.palette.grey[800],
+          "&:hover": {
+            color: theme.palette.common.white,
+            backgroundColor: theme.palette.grey[800],
+          },
+        },
+        sizeLarge: {
+          minHeight: 48,
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          color: theme.palette.text.secondary,
+          backgroundColor: theme.palette.background.neutral,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow:
+            "0 0 2px 0 rgba(145, 158, 171, 0.08),0 12px 24px -4px rgba(145, 158, 171, 0.08)",
+        },
+      },
+    },
   };
 }

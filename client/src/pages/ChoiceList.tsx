@@ -69,7 +69,14 @@ const ChoiceList = () => {
             return <LoadingSpinner isLoading={true} />;
           }
           if (size(choiceList)) {
-            return <FoodChoiceTable data={choiceList} />;
+            return (
+              <Box>
+                <Typography variant="h6" component="div" sx={{ py: 2, px: 0 }}>
+                  Food Choices List
+                </Typography>
+                <FoodChoiceTable data={choiceList} />
+              </Box>
+            );
           }
           return (
             <Box

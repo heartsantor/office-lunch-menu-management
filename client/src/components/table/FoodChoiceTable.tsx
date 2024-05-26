@@ -31,9 +31,6 @@ interface FoodChoiceTableProps {
 const FoodChoiceTable: React.FC<FoodChoiceTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
-      <Typography variant="h6" component="div" sx={{ padding: 2 }}>
-        Employee Choices Item List
-      </Typography>
       <Table>
         <TableHead>
           <TableRow>

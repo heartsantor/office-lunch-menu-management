@@ -44,9 +44,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Typography variant="h6" component="div" sx={{ padding: 2 }}>
-        Employee List
-      </Typography>
       <Table>
         <TableHead>
           <TableRow>
