@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -13,7 +14,7 @@ import { userLoggedOut } from "../../store/features/auth/authSlice";
 
 const AccountPopover = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -52,7 +53,11 @@ const AccountPopover = () => {
             <Typography
               variant="body2"
               component="span"
-              color={`${user?.role === "admin" ? "#ff6b6b" : "#79ff6b"}`}
+              color={`${
+                user?.role === "admin"
+                  ? theme.palette.error.main
+                  : theme.palette.success.main
+              }`}
             >
               ({user?.role})
             </Typography>
