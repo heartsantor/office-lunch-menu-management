@@ -5,6 +5,10 @@ export const adminApi = apiSlice.injectEndpoints({
     getEmployeeChoiceList: builder.query({
       query: () => "/admin/choices",
     }),
+    getEmployeeAll: builder.query({
+      query: () => "/admin/allEmployeeList",
+      providesTags: ["getEmployeeAll"],
+    }),
     getAllMenu: builder.query({
       query: () => "/employee/menu",
       providesTags: ["getAllMenu"],
@@ -29,13 +33,24 @@ export const adminApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["getAllMenu", "getAllMenuByDate"],
     }),
+
+    deleteEmployee: builder.mutation({
+      query: (id) => ({
+        url: `/auth/user/${id}`,
+        method: "DELETE",
+        body: id,
+      }),
+      invalidatesTags: ["getEmployeeAll"],
+    }),
   }),
 });
 
 export const {
   useGetEmployeeChoiceListQuery,
+  useGetEmployeeAllQuery,
   useGetAllMenuQuery,
   useLazyGetAllMenuByDateQuery,
   useAddFoodItemMutation,
   useDeleteMenuMutation,
+  useDeleteEmployeeMutation,
 } = adminApi;

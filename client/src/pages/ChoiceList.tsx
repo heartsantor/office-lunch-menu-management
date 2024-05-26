@@ -8,7 +8,7 @@ import { Container, Box, Typography } from "@mui/material";
 
 import { RootState } from "../utils/types"; // Adjust the import path as needed
 
-import EmployeeTable from "../components/EmployeeTable";
+import FoodChoiceTable from "../components/table/FoodChoiceTable";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 import { useGetEmployeeChoiceListQuery } from "../store/features/admin/adminApi";
@@ -69,7 +69,7 @@ const ChoiceList = () => {
             return <LoadingSpinner isLoading={true} />;
           }
           if (size(choiceList)) {
-            return <EmployeeTable data={choiceList} />;
+            return <FoodChoiceTable data={choiceList} />;
           }
           return (
             <Box

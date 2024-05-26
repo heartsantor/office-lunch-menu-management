@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { formatDate } from "../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 
 interface EmployeeData {
   category: string;
@@ -24,11 +24,11 @@ interface EmployeeData {
   username: string;
 }
 
-interface EmployeeTableProps {
+interface FoodChoiceTableProps {
   data: EmployeeData[];
 }
 
-const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
+const FoodChoiceTable: React.FC<FoodChoiceTableProps> = ({ data }) => {
   return (
     <TableContainer component={Paper}>
       <Typography variant="h6" component="div" sx={{ padding: 2 }}>
@@ -70,4 +70,4 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({ data }) => {
   );
 };
 
-export default EmployeeTable;
+export default FoodChoiceTable;
