@@ -1,3 +1,5 @@
+import { alpha } from '@mui/material/styles';
+
 export function overrides(theme: any) {
   return {
     MuiCssBaseline: {
@@ -21,6 +23,16 @@ export function overrides(theme: any) {
         "#root": {
           width: "100%",
           height: "100%",
+        },
+      },
+    },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: alpha(theme.palette.grey[900], 0.8),
+        },
+        invisible: {
+          background: 'transparent',
         },
       },
     },

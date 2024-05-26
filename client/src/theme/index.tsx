@@ -6,6 +6,7 @@ import {
 } from "@mui/material/styles";
 
 import { overrides } from "./overrides";
+import { palette } from "./palette";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ interface ProtectedRouteProps {
 const ThemeProvider: React.FC<ProtectedRouteProps> = ({ children }) => {
   const memoizedValue = useMemo(
     () => ({
+      palette: palette("light"),
       shape: { borderRadius: 8 },
     }),
     []

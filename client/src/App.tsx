@@ -15,6 +15,7 @@ import Registration from "./pages/Registration";
 import Dashboard from "./pages/Dashboard";
 import CreateItem from "./pages/CreateItem";
 import ChoiceList from "./pages/ChoiceList";
+import EmployeeList from "./pages/EmployeeList";
 
 import ThemeProvider from "./theme";
 
@@ -59,6 +60,14 @@ const App = () => {
       component: (
         <ProtectedRoute>
           <ChoiceList />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/employee-list",
+      component: (
+        <ProtectedRoute>
+          <EmployeeList />
         </ProtectedRoute>
       ),
     },
