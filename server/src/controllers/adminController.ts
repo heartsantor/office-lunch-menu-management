@@ -55,3 +55,16 @@ export const viewEmployeeChoices = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error fetching employee choices" });
   }
 };
+
+export const getAllEmployees = async (req: Request, res: Response) => {
+  try {
+    const result = await query(
+      "SELECT email, name, id FROM users WHERE role = $1",
+      ["employee"]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error fetching employee list" });
+  }
+};
