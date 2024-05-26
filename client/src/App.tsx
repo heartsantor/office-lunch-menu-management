@@ -1,5 +1,4 @@
-import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -17,9 +16,10 @@ import Dashboard from "./pages/Dashboard";
 import CreateItem from "./pages/CreateItem";
 import ChoiceList from "./pages/ChoiceList";
 
+import ThemeProvider from "./theme";
+
 const App = () => {
   const isAuthChecked = useAuthCheck();
-  const defaultTheme = createTheme();
 
   const routes = [
     {
@@ -69,19 +69,18 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
+    <ThemeProvider>
       <BrowserRouter>
-        <Routes>
-          {routes?.map(({ path, component }) => (
-            <Route path={path} key={path} element={component} />
-          ))}
-          <Route path="notfound" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-
-        {/* toastify */}
-        <ToastContainer />
+        <Suspense>
+          <Routes>
+            {routes?.map(({ path, component }) => (
+              <Route path={path} key={path} element={component} />
+            ))}
+            <Route path="notfound" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <ToastContainer />
+        </Suspense>
       </BrowserRouter>
     </ThemeProvider>
   );
