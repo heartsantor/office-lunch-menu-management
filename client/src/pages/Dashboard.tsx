@@ -59,14 +59,19 @@ const Dashboard = () => {
         pb: { xs: 8, sm: 16 },
       }}
     >
-      {user?.role === "employee" ? (
+      {/* {user?.role === "employee" ? (
         <>
           {(() => {
             if (employeeIsLoading) {
               return <LoadingSpinner isLoading={true} />;
             }
             if (size(employeeTodayData)) {
-              return <MyLunch data={employeeTodayData} />;
+              return (
+                <MyLunch
+                  data={employeeTodayData}
+                  isLoading={employeeIsLoading}
+                />
+              );
             }
             return (
               <Box
@@ -89,6 +94,10 @@ const Dashboard = () => {
             );
           })()}
         </>
+      ) : null} */}
+
+      {user?.role === "employee" ? (
+        <MyLunch data={employeeTodayData} isLoading={employeeIsLoading} />
       ) : null}
 
       {(() => {

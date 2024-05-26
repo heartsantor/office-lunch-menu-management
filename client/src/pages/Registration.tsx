@@ -193,7 +193,14 @@ const Registration: React.FC = () => {
         </Box>
         <Grid container>
           <Grid item>
-            <Link to="/" component={RoutLink} variant="body2">
+            <Link
+              to="/"
+              component={RoutLink}
+              variant="body2"
+              sx={{
+                textDecoration: "none",
+              }}
+            >
               already have account? Sign In
             </Link>
           </Grid>

@@ -152,7 +152,14 @@ export default function Login() {
           </Box>
           <Grid container>
             <Grid item>
-              <Link to="/registration" component={RoutLink} variant="body2">
+              <Link
+                to="/registration"
+                component={RoutLink}
+                variant="body2"
+                sx={{
+                  textDecoration: "none",
+                }}
+              >
                 Don't Have An Account? Sign Up
               </Link>
             </Grid>

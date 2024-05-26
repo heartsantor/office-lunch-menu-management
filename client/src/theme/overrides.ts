@@ -1,5 +1,4 @@
-import { alpha } from '@mui/material/styles';
-
+import { alpha } from "@mui/material/styles";
 export function overrides(theme: any) {
   return {
     MuiCssBaseline: {
@@ -32,7 +31,7 @@ export function overrides(theme: any) {
           backgroundColor: alpha(theme.palette.grey[900], 0.8),
         },
         invisible: {
-          background: 'transparent',
+          background: "transparent",
         },
       },
     },
