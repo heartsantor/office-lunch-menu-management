@@ -58,8 +58,8 @@ export default function Login() {
     }
 
     const mutationData = {
-      email,
-      password,
+      email: email.trim(),
+      password: password,
     };
 
     if (size(mutationData)) {

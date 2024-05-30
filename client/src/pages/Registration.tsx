@@ -77,7 +77,7 @@ const Registration: React.FC = () => {
     }
 
     const mutationData = {
-      email,
+      email: email.trim(),
       name,
       password,
       role: "employee",
