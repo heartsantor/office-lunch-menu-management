@@ -50,8 +50,9 @@ password:- adminpassword
 - **admin**
 - |---   view today food menu 
 - |---   view previous food menu
-- |---   create,delete menu
+- |---   create, edit, delete menu
 - |---   view employee choice list
+- |---   set old menu for today food
 ----
 - **Employee**
 - |---   view today food menu 
