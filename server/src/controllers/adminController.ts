@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { query } from "../utils/db";
+import { getTodayInBangladesh } from "../utils/getTodayInBangladesh";
 
 export const addMenuOption = async (req: Request, res: Response) => {
   const {
@@ -19,12 +20,10 @@ export const addMenuOption = async (req: Request, res: Response) => {
       "INSERT INTO menus (date, title, description, rating, rating_amount, price, category, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
       [date, title, description, rating, rating_amount, price, category, imgUrl]
     );
-    res
-      .status(201)
-      .json({
-        message: "Menu option added successfully",
-        data: result.rows[0],
-      });
+    res.status(201).json({
+      message: "Menu option added successfully",
+      data: result.rows[0],
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error adding menu option" });
@@ -66,5 +65,29 @@ export const getAllEmployees = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error fetching employee list" });
+  }
+};
+
+export const updateMenuDateById = async (req: Request, res: Response) => {
+  const menuId = req.params.menuId;
+  const date = getTodayInBangladesh();
+
+  try {
+    const result = await query(
+      "UPDATE menus SET date = $1 WHERE menu_id = $2 RETURNING *",
+      [date, menuId]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Menu option not found" });
+    }
+
+    res.status(200).json({
+      message: "Menu date updated successfully",
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error updating menu date" });
   }
 };

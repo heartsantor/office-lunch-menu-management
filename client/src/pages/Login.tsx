@@ -165,7 +165,7 @@ export default function Login() {
             </Grid>
           </Grid>
         </Box>
-        <Box component={Paper} sx={{ background: "#EBEBEB99", mb: 4 }}>
+        <Box component={Paper} sx={{ background: "#EBEBEB99", mt: 2, p: 2 }}>
           <p>
             <strong>admin</strong>
           </p>
