@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import Container from "@mui/material/Container";
 
-import CreateForm from "../components/CreateForm";
+import CreateForm from "../components/forms/CreateForm";
 
 import { RootState } from "../utils/types"; // Adjust the import path as needed
 

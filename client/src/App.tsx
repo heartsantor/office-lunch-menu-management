@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import Dashboard from "./pages/Dashboard";
 import CreateItem from "./pages/CreateItem";
+import EditItem from "./pages/EditItem";
 import ChoiceList from "./pages/ChoiceList";
 import EmployeeList from "./pages/EmployeeList";
 
@@ -52,6 +53,14 @@ const App = () => {
       component: (
         <ProtectedRoute>
           <CreateItem />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/edit-item/:itemId",
+      component: (
+        <ProtectedRoute>
+          <EditItem />
         </ProtectedRoute>
       ),
     },

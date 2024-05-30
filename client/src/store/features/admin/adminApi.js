@@ -13,6 +13,10 @@ export const adminApi = apiSlice.injectEndpoints({
       query: () => "/employee/menu",
       providesTags: ["getAllMenu"],
     }),
+    getSingleMenuById: builder.query({
+      query: (id) => `admin/menu/${id}`,
+      providesTags: ["getAllMenu"],
+    }),
     getAllMenuByDate: builder.query({
       query: (date) => `/employee/menu?date=${date}`,
       providesTags: ["getAllMenuByDate"],
@@ -42,6 +46,22 @@ export const adminApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["getEmployeeAll"],
     }),
+    editMenuItemById: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `admin/menu/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["getAllMenu", "getAllMenuByDate"],
+    }),
+    updateMenuItemByDate: builder.mutation({
+      query: (id) => ({
+        url: `/admin/menu/${id}/date`,
+        method: "PUT",
+        body: id,
+      }),
+      invalidatesTags: ["getAllMenu", "getAllMenuByDate"],
+    }),
   }),
 });
 
@@ -49,8 +69,12 @@ export const {
   useGetEmployeeChoiceListQuery,
   useGetEmployeeAllQuery,
   useGetAllMenuQuery,
+  useGetSingleMenuByIdQuery,
   useLazyGetAllMenuByDateQuery,
+  useGetAllMenuByDateQuery,
   useAddFoodItemMutation,
   useDeleteMenuMutation,
   useDeleteEmployeeMutation,
+  useEditMenuItemByIdMutation,
+  useUpdateMenuItemByDateMutation,
 } = adminApi;

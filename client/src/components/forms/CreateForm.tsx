@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { size } from "lodash";
 import { useNavigate } from "react-router-dom";
-import { toastAlert } from "../utils/AppHelpers";
+import { toastAlert } from "../../utils/AppHelpers";
 import {
   Button,
   TextField,
@@ -12,9 +12,9 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { CloudinaryWidget } from "./CloudinaryWidget";
+import { CloudinaryWidget } from "../CloudinaryWidget";
 
-import { useAddFoodItemMutation } from "../store/features/admin/adminApi";
+import { useAddFoodItemMutation } from "../../store/features/admin/adminApi";
 
 interface FoodFormProps {
   categories: string[];
